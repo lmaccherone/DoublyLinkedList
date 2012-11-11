@@ -1,4 +1,4 @@
-[![build status](https://secure.travis-ci.org/lmaccherone/jsduckify.png)](http://travis-ci.org/lmaccherone/jsduckify)
+[![build status](https://secure.travis-ci.org/lmaccherone/DoublyLinkedList.png)](http://travis-ci.org/lmaccherone/DoublyLinkedList)
 
 # DoublyLinkedList #
 

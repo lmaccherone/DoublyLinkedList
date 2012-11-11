@@ -1,5 +1,5 @@
 {
-  "name": "DoublyLinkedNode",
+  "name": "doubly-linked-list",
   "main": "./DoublyLinkedList",
   "version": "0.1.0",
   "description": "A doubly linked list implementation in CoffeeScript.",
@@ -13,7 +13,7 @@
     "name": "Larry Maccherone",
     "url": "http://maccherone.com"
   },
-  "homepage": "https://github.com/lmaccherone/DoublyLinkedNode",
+  "homepage": "https://github.com/lmaccherone/DoublyLinkedList",
   "engines": {
     "node": "0.8.x"
   },
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type" : "git",
-    "url" : "http://github.com/lmaccherone/DoublyLinkedNode.git"
+    "url" : "http://github.com/lmaccherone/DoublyLinkedList.git"
   },
   "preferGlobal": false,
   "devDependencies": {
