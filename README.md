@@ -52,7 +52,7 @@ Insert before or after.
     list.head.after.insertBefore(1.5)
     list.tail.before.insertAfter(2.5)    
     console.log(list.toString())
-    # 1,1.5,2,2.5,3    
+    # 1,1.5,2,2.5,3
 
 ## Installation ##
 

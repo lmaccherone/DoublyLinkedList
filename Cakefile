@@ -30,8 +30,7 @@ task('doctest', 'Runs doctests found in documentation', () ->
   process.chdir(__dirname)
   fs.readdir('./', (err, contents) ->
     files = ("#{file}" for file in contents when (file.indexOf('.coffee') > 0))
-#     run('coffeedoc', ['-o', './docs', '-p', './package.json'].concat(files))  
-    run('coffeedoctest', ['--readme'].concat(files))
+    run('node_modules/coffeedoctest/bin/coffeedoctest', ['--readme'].concat(files))
   )
 )
 

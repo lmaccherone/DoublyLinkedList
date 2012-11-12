@@ -26,12 +26,12 @@
   },
   "preferGlobal": false,
   "devDependencies": {
-    "nodeunit": "0.7.x"
+    "nodeunit": "0.7.x",
+    "coffeedoctest": "0.4.x"
   },
   "scripts": {
     "test": "cake test",
-    "pretest": "echo HELLO",
-    "posttest": "echo GOODBYE"
+    "posttest": "cake doctest"
   },
   "licenses": [
      {
