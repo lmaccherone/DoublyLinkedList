@@ -66,16 +66,16 @@ class DoublyLinkedList
     return a
 
   toString: () ->
+    return @toArray().toString()
+
+  debug: () ->
     s = "head: #{@head}"
     current = @head
     while current?
-      s += current.toString()
+      s += current.debug()
       current = current.after
     s += "tail: #{@tail}"
-    return s
-
-  print: () ->
-    console.log(@toString())
+    console.log(s)
 
 ###
 @class DoublyLinkedNode
@@ -139,7 +139,7 @@ class DoublyLinkedNode
     @list--
     return this
 
-  toString: () ->
+  debug: () ->
     return "{value: #{@value}, before: #{@before?.value}, after: #{@after?.value}}\n"
 
 exports.DoublyLinkedNode = DoublyLinkedNode

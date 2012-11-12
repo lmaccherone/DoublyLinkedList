@@ -14,8 +14,45 @@ _A doubly linked list implementation in CoffeeScript._
 
 **DoublyLinkedList** is an implementation of a doubly linked list in CoffeeScript.
     
-    {DoublyLinkedList, DoublyLinkedNode} = require('./')
-    list = new DoublyLinkedList 
+Instantiate it empty or with an array.
+
+    {DoublyLinkedList} = require('./')
+    list = new DoublyLinkedList([1, 2, 3])
+    console.log(list.toString())
+    # 1,2,3
+    
+Push stuff onto the end or unshift stuff onto the beginning.
+
+    list.push(4)
+    list.unshift(0)
+    console.log(list.toString())
+    # 0,1,2,3,4
+    
+Pop and shift.
+
+    last = list.pop()
+    first = list.shift()
+    console.log(list.toString())
+    # 1,2,3
+    console.log(first, last)
+    # 0 4
+    
+Maybe someday I'll implement a true iterator. In the mean time, you can walk before and after.
+
+    current = list.head
+    while current?
+      console.log(current.value)
+      current = current.after
+    # 1
+    # 2
+    # 3
+    
+Insert before or after.
+
+    list.head.after.insertBefore(1.5)
+    list.tail.before.insertAfter(2.5)    
+    console.log(list.toString())
+    # 1,1.5,2,2.5,3    
 
 ## Installation ##
 
@@ -24,6 +61,7 @@ Add `"DoublyLinkedNode":"0.1.x"` to the dependencies property in your `config.js
 ## Changelog ##
 
 * 0.1.0 - 2012-11-11 - Original version
+* 0.1.1 - 2012-11-11 - Simpler toString() and added usage
 
 ## MIT License ##
 
