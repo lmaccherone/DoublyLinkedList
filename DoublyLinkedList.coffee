@@ -134,8 +134,6 @@ class DoublyLinkedNode
       @after.before = @before
     else
       @list.tail = @before
-    @before = null
-    @after = null
     @list--
     return this
 

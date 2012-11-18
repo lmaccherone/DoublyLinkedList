@@ -1,7 +1,7 @@
 {
   "name": "doubly-linked-list",
   "main": "./DoublyLinkedList",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A doubly linked list implementation in CoffeeScript.",
   "keywords": [
     "linked list",

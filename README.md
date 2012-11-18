@@ -60,8 +60,9 @@ Add `"DoublyLinkedNode":"0.1.x"` to the dependencies property in your `config.js
 
 ## Changelog ##
 
-* 0.1.0 - 2012-11-11 - Original version
+* 0.1.2 - 2012-11-18 - remove() no longer disconnects before and after of removed node
 * 0.1.1 - 2012-11-11 - Simpler toString() and added usage
+* 0.1.0 - 2012-11-11 - Original version
 
 ## MIT License ##
 
