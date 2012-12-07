@@ -57,7 +57,7 @@ task('publish', 'Publish to npm', () ->
   runSync('cake test')  # Doing this exernally to make it synchrous
   runSync('git status --porcelain', [], (stdout) ->
     if stdout.length == 0
-      {stdout, stderr} = execSync('git rev-parse origin', true)
+      {stdout, stderr} = execSync('git rev-parse origin/master', true)
       stdoutOrigin = stdout
       {stdout, stderr} = execSync('git rev-parse master', true)
       stdoutMaster = stdout
