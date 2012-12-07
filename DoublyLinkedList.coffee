@@ -1,7 +1,3 @@
-###
-
-
-###
 class DoublyLinkedList
 
   constructor: (initialValues) ->

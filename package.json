@@ -1,8 +1,8 @@
 {
   "name": "doubly-linked-list",
   "main": "./DoublyLinkedList",
-  "version": "0.1.2",
-  "description": "A doubly linked list implementation in CoffeeScript.",
+  "version": "0.1.3",
+  "description": "A doubly linked list implementation in CoffeeScript (can `require` from JavaScript).",
   "keywords": [
     "linked list",
     "doubly linked list",
@@ -18,25 +18,27 @@
     "node": "0.8.x"
   },
   "dependencies": {
-    "coffee-script": "1.4.x"
   },
   "repository": {
-    "type" : "git",
-    "url" : "http://github.com/lmaccherone/DoublyLinkedList.git"
+    "type": "git",
+    "url": "http://github.com/lmaccherone/DoublyLinkedList.git"
   },
   "preferGlobal": false,
   "devDependencies": {
+    "exec-sync": "0.1.x",
+    "coffee-script": "1.4.x",
     "nodeunit": "0.7.x",
     "coffeedoctest": "0.4.x"
   },
   "scripts": {
     "test": "cake test",
-    "posttest": "cake doctest"
+    "posttest": "cake doctest",
+    "postinstall": "cake compile"
   },
   "licenses": [
-     {
-         "type": "MIT",
-         "url": "http://www.opensource.org/licenses/MIT"
-     }
-   ]
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ]
 }
