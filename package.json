@@ -1,7 +1,7 @@
 {
   "name": "doubly-linked-list",
   "main": "./DoublyLinkedList",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A doubly linked list implementation in CoffeeScript (can `require` from JavaScript).",
   "keywords": [
     "linked list",
@@ -18,6 +18,7 @@
     "node": "0.8.x"
   },
   "dependencies": {
+    "coffee-script": "1.4.x"
   },
   "repository": {
     "type": "git",
@@ -26,14 +27,13 @@
   "preferGlobal": false,
   "devDependencies": {
     "exec-sync": "0.1.x",
-    "coffee-script": "1.4.x",
     "nodeunit": "0.7.x",
     "coffeedoctest": "0.4.x"
   },
   "scripts": {
     "test": "cake test",
     "posttest": "cake doctest",
-    "postinstall": "cake compile"
+    "postinstall": "coffee -c *.coffee"
   },
   "licenses": [
     {
