@@ -60,6 +60,7 @@ Insert before or after.
 
 ## Changelog ##
 
+* 0.1.5 - 2012-12-07 - reverted CoffeeScript compile npm postinstall due to TravisCI failure
 * 0.1.4 - 2012-12-07 - fixed dependency problem doing clean npm install
 * 0.1.3 - 2012-12-07 - refactored Cakefile to my latest from Lumenize
 * 0.1.2 - 2012-11-18 - remove() no longer disconnects before and after of removed node
