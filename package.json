@@ -33,7 +33,7 @@
   "scripts": {
     "test": "cake test",
     "posttest": "cake doctest",
-    "postinstall": "coffee -c *.coffee"
+    "postinstall": "node_modules/.bin/coffee -c *.coffee"
   },
   "licenses": [
     {

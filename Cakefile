@@ -31,14 +31,6 @@ runSync = (command, options, next) ->
     if stdout.length > 0
       console.log("Stdout exec'ing command '#{command}'...\n" + stdout)
 
-task('compile', 'Compile CoffeeScript source files to JavaScript', () ->
-  process.chdir(__dirname)
-  fs.readdir('./', (err, contents) ->
-    files = ("#{file}" for file in contents when (file.indexOf('.coffee') > 0))
-    runSync('coffee', ['-c'].concat(files))
-  )
-)
-
 task('doctest', 'Runs doctests found in documentation', () ->
   process.chdir(__dirname)
   fs.readdir('./', (err, contents) ->
@@ -69,7 +61,7 @@ task('publish', 'Publish to npm', () ->
         else
           console.log('running git tag')
           runSync("git tag v#{require('./package.json').version}")
-          runAsync("git push --tags")  # !TODO: This is untested. Will confirm it works next version.
+          runAsync("git push --tags")
       else
         console.error('Origin and master out of sync. Not publishing.')
     else
