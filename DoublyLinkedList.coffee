@@ -130,7 +130,7 @@ class DoublyLinkedNode
       @after.before = @before
     else
       @list.tail = @before
-    @list--
+    @list.length--
     return this
 
   debug: () ->
