@@ -95,7 +95,7 @@ task('publish', 'Publish to npm, add git tags', () ->
       if stdoutOrigin == stdoutMaster
 
         console.log('running npm publish')
-        runSyncNoExit('coffee -c *.coffee src')
+        runSyncNoExit('coffee -c *.coffee')
         runSyncNoExit('npm publish .')
 
         if fs.existsSync('npm-debug.log')
