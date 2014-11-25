@@ -17,18 +17,18 @@
   "engines": {
     "node": "0.8.x"
   },
-  "dependencies": {
-    "coffee-script": "1.4.x"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "http://github.com/lmaccherone/DoublyLinkedList.git"
   },
   "preferGlobal": false,
   "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "coffeedoctest": "0.4.x",
     "exec-sync": "0.1.x",
     "nodeunit": "0.7.x",
-    "coffeedoctest": "0.4.x"
+    "runsync": "^0.1.8"
   },
   "scripts": {
     "test": "cake test",

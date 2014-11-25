@@ -37,11 +37,14 @@ exports.doublyLinkedListTest =
     myList.unshift(100)
     myList.push(400)
     test.deepEqual(myList.toArray(), [100, 200, 300, 400])
+    test.equal(myList.length, 4)
 
     test.equal(myList.shift(), 100)
     test.equal(myList.pop(), 400)
     test.equal(myList.pop(), 300)
     test.equal(myList.shift(), 200)
+    test.deepEqual(myList.toArray(), [])
+    test.equal(myList.length, 0)
 
     test.done()
 
