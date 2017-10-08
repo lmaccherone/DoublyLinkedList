@@ -25,24 +25,6 @@ runSyncRaw = (command, options) ->
   stderr = output.stderr?.toString()
   return {stderr, stdout}
 
-
-
-
-# runAsync = (command, options, next) ->
-#   if options? and options.length > 0
-#     command += ' ' + options.join(' ')
-#   exec(command, (error, stdout, stderr) ->
-#     if stderr.length > 0
-#       console.log("Stderr exec'ing command '#{command}'...\n" + stderr)
-#     if error?
-#       console.log('exec error: ' + error)
-#     if next?
-#       next(stdout)
-#     else
-#       if stdout.length > 0
-#         console.log("Stdout exec'ing command '#{command}'...\n" + stdout)
-#   )
-
 task('doctest', 'Runs doctests found in documentation', () ->
   process.chdir(__dirname)
   fs.readdir('./', (err, contents) ->
@@ -50,68 +32,6 @@ task('doctest', 'Runs doctests found in documentation', () ->
     runSync('node_modules/coffeedoctest/bin/coffeedoctest', ['--readme'].concat(files))
   )
 )
-
-task('publish-old', 'Publish to npm', () ->
-  process.chdir(__dirname)
-  runSync('cake test')  # Doing this exernally to make it synchrous
-  runSync('git status --porcelain', [], (stdout) ->
-    if stdout.length == 0
-      {stdout, stderr} = execSync('git rev-parse origin/master', true)
-      stdoutOrigin = stdout
-      {stdout, stderr} = execSync('git rev-parse master', true)
-      stdoutMaster = stdout
-      if stdoutOrigin == stdoutMaster
-        console.log('running npm publish')
-        {stdout, stderr} = execSync('npm publish .', true)
-        if fs.existsSync('npm-debug.log')
-          console.error('`npm publish` failed. See npm-debug.log for details.')
-        else
-          console.log('running git tag')
-          runSync("git tag v#{require('./package.json').version}")
-          runAsync("git push --tags")
-      else
-        console.error('Origin and master out of sync. Not publishing.')
-    else
-      console.error('`git status --porcelain` was not clean. Not publishing.')
-  )
-)
-
-# task('publish', 'Publish to npm, add git tags', () ->
-#   process.chdir(__dirname)
-#   runSync('cake test')  # Doing this externally to make it synchrous
-#   invoke('doctest')
-#   process.chdir(__dirname)
-#   console.log('checking git status --porcelain')
-#   runSync('git status --porcelain', [], (stdout) ->
-#     if stdout.length == 0
-#
-#       console.log('checking origin/master')
-#       {stderr, stdout} = runSyncNoExit('git rev-parse origin/master')
-#
-#       console.log('checking master')
-#       stdoutOrigin = stdout
-#       {stderr, stdout} = runSyncNoExit('git rev-parse master')
-#       stdoutMaster = stdout
-#
-#       if stdoutOrigin == stdoutMaster
-#
-#         console.log('running npm publish')
-#         runSyncNoExit('coffee -c *.coffee')
-#         runSyncNoExit('npm publish .')
-#
-#         if fs.existsSync('npm-debug.log')
-#           console.error('`npm publish` failed. See npm-debug.log for details.')
-#         else
-#
-#           console.log('creating git tag')
-#           runSyncNoExit("git tag v#{require('./package.json').version}")
-#           runSyncNoExit("git push --tags")
-#       else
-#         console.error('Origin and master out of sync. Not publishing.')
-#     else
-#       console.error('`git status --porcelain` was not clean. Not publishing.')
-#   )
-# )
 
 task('publish', 'Publish to npm and add git tags', () ->
   process.chdir(__dirname)
@@ -133,7 +53,7 @@ task('publish', 'Publish to npm and add git tags', () ->
       if stdoutOrigin == stdoutMaster
 
         console.log('running npm publish')
-        runSyncNoExit('coffee', ['-c', '*.coffee'])
+        runSyncNoExit('coffee', ['--compile', 'DoublyLinkedList.coffee'])
         runSyncNoExit('npm', ['publish', '.'])
 
         if fs.existsSync('npm-debug.log')
