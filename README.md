@@ -13,21 +13,21 @@ _A doubly linked list implementation in CoffeeScript._
 ## Usage ##
 
 **DoublyLinkedList** is an implementation of a doubly linked list in CoffeeScript.
-    
+
 Instantiate it empty or with an array.
 
     {DoublyLinkedList} = require('./')
     list = new DoublyLinkedList([1, 2, 3])
     console.log(list.toString())
     # 1,2,3
-    
+
 Push stuff onto the end or unshift stuff onto the beginning.
 
     list.push(4)
     list.unshift(0)
     console.log(list.toString())
     # 0,1,2,3,4
-    
+
 Pop and shift.
 
     last = list.pop()
@@ -36,7 +36,7 @@ Pop and shift.
     # 1,2,3
     console.log(first, last)
     # 0 4
-    
+
 Maybe someday I'll implement a true iterator. In the mean time, you can walk before and after.
 
     current = list.head
@@ -46,7 +46,7 @@ Maybe someday I'll implement a true iterator. In the mean time, you can walk bef
     # 1
     # 2
     # 3
-    
+
 Insert before or after.
 
     list.head.after.insertBefore(1.5)
@@ -60,6 +60,7 @@ Insert before or after.
 
 ## Changelog ##
 
+* 1.0.0 - 2017-10-07 - Calling it 1.0.0 and trying again to get .js files into npm package. Prior attempt apparently failed.
 * 0.2.1 - 2014-11-25 - Moved CoffeeScript to dev dependency and added .js files to npm package
 * 0.2.0 - 2014-11-25 - Fixed bug where length was incorrect on pop and shift operations
 * 0.1.5 - 2012-12-07 - reverted CoffeeScript compile npm postinstall due to TravisCI failure

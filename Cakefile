@@ -1,46 +1,47 @@
 fs = require('fs')
 path = require('path')
-{spawn, exec} = require('child_process')
-runsync = require('runsync')  # polyfil for node.js 0.12 synchronous running functionality. Remove when upgrading to 0.12
+{spawn, exec, spawnSync} = require('child_process')
+_ = require('lodash')
 
-runSync = (command, options, next) ->
+runSync = (command, options, next) ->  # !TODO: Upgrade to runSync in node-localstorage
   {stderr, stdout} = runSyncRaw(command, options)
-  if stderr.length > 0
+  if stderr?.length > 0
     console.error("Error running `#{command}`\n" + stderr)
     process.exit(1)
   if next?
     next(stdout)
   else
-    if stdout.length > 0
-      console.log("Stdout exec'ing command '#{command}'...\n" + stdout)
+    if stdout?.length > 0
+      console.log("Stdout running command '#{command}'...\n" + stdout)
 
-runSyncNoExit = (command, options) ->
+runSyncNoExit = (command, options = []) ->
   {stderr, stdout} = runSyncRaw(command, options)
-  console.log("Output of running '#{command}'...\n#{stderr}\n#{stdout}\n")
+  console.log("Output of running '#{command + ' ' + options.join(' ')}'...\n#{stderr}\n#{stdout}\n")
   return {stderr, stdout}
 
 runSyncRaw = (command, options) ->
-  if options? and options.length > 0
-    command += ' ' + options.join(' ')
-  output = runsync.popen(command)
-  stdout = output.stdout.toString()
-  stderr = output.stderr.toString()
+  output = spawnSync(command, options)
+  stdout = output.stdout?.toString()
+  stderr = output.stderr?.toString()
   return {stderr, stdout}
 
-runAsync = (command, options, next) ->
-  if options? and options.length > 0
-    command += ' ' + options.join(' ')
-  exec(command, (error, stdout, stderr) ->
-    if stderr.length > 0
-      console.log("Stderr exec'ing command '#{command}'...\n" + stderr)
-    if error?
-      console.log('exec error: ' + error)
-    if next?
-      next(stdout)
-    else
-      if stdout.length > 0
-        console.log("Stdout exec'ing command '#{command}'...\n" + stdout)
-  )
+
+
+
+# runAsync = (command, options, next) ->
+#   if options? and options.length > 0
+#     command += ' ' + options.join(' ')
+#   exec(command, (error, stdout, stderr) ->
+#     if stderr.length > 0
+#       console.log("Stderr exec'ing command '#{command}'...\n" + stderr)
+#     if error?
+#       console.log('exec error: ' + error)
+#     if next?
+#       next(stdout)
+#     else
+#       if stdout.length > 0
+#         console.log("Stdout exec'ing command '#{command}'...\n" + stdout)
+#   )
 
 task('doctest', 'Runs doctests found in documentation', () ->
   process.chdir(__dirname)
@@ -75,36 +76,76 @@ task('publish-old', 'Publish to npm', () ->
   )
 )
 
-task('publish', 'Publish to npm, add git tags', () ->
+# task('publish', 'Publish to npm, add git tags', () ->
+#   process.chdir(__dirname)
+#   runSync('cake test')  # Doing this externally to make it synchrous
+#   invoke('doctest')
+#   process.chdir(__dirname)
+#   console.log('checking git status --porcelain')
+#   runSync('git status --porcelain', [], (stdout) ->
+#     if stdout.length == 0
+#
+#       console.log('checking origin/master')
+#       {stderr, stdout} = runSyncNoExit('git rev-parse origin/master')
+#
+#       console.log('checking master')
+#       stdoutOrigin = stdout
+#       {stderr, stdout} = runSyncNoExit('git rev-parse master')
+#       stdoutMaster = stdout
+#
+#       if stdoutOrigin == stdoutMaster
+#
+#         console.log('running npm publish')
+#         runSyncNoExit('coffee -c *.coffee')
+#         runSyncNoExit('npm publish .')
+#
+#         if fs.existsSync('npm-debug.log')
+#           console.error('`npm publish` failed. See npm-debug.log for details.')
+#         else
+#
+#           console.log('creating git tag')
+#           runSyncNoExit("git tag v#{require('./package.json').version}")
+#           runSyncNoExit("git push --tags")
+#       else
+#         console.error('Origin and master out of sync. Not publishing.')
+#     else
+#       console.error('`git status --porcelain` was not clean. Not publishing.')
+#   )
+# )
+
+task('publish', 'Publish to npm and add git tags', () ->
   process.chdir(__dirname)
-  runSync('cake test')  # Doing this externally to make it synchrous
-  invoke('doctest')
-  process.chdir(__dirname)
-  console.log('checking git status --porcelain')
-  runSync('git status --porcelain', [], (stdout) ->
+
+  console.log('Running tests')
+  runSync('cake', ['test'])  # Doing this externally to make it synchronous
+
+  console.log('Checking git status --porcelain')
+  runSync('git', ['status', '--porcelain'], (stdout) ->
     if stdout.length == 0
 
       console.log('checking origin/master')
-      {stderr, stdout} = runSyncNoExit('git rev-parse origin/master')
-
+      {stderr, stdout} = runSyncNoExit('git', ['rev-parse', 'origin/master'])
       console.log('checking master')
       stdoutOrigin = stdout
-      {stderr, stdout} = runSyncNoExit('git rev-parse master')
+      {stderr, stdout} = runSyncNoExit('git', ['rev-parse', 'master'])
       stdoutMaster = stdout
 
       if stdoutOrigin == stdoutMaster
 
         console.log('running npm publish')
-        runSyncNoExit('coffee -c *.coffee')
-        runSyncNoExit('npm publish .')
+        runSyncNoExit('npm', ['publish', '.'])
 
         if fs.existsSync('npm-debug.log')
           console.error('`npm publish` failed. See npm-debug.log for details.')
         else
 
           console.log('creating git tag')
-          runSyncNoExit("git tag v#{require('./package.json').version}")
-          runSyncNoExit("git push --tags")
+          runSyncNoExit("git", ["tag", "v#{require('./package.json').version}"])
+          runSyncNoExit("git", ["push", "--tags"])
+
+          console.log('removing .js and .map files')
+          runSync('cake', ['clean'])
+
       else
         console.error('Origin and master out of sync. Not publishing.')
     else
@@ -126,4 +167,13 @@ task('test', 'Run the test suite with nodeunit', () ->
 task('testall', 'Runs both tests and doctests', () ->
   invoke('test')
   invoke('doctest')
+)
+
+task('clean', 'Deletes .js and .map files', () ->
+  folders = ['.', 'test']
+  for folder in folders
+    pathToClean = path.join(__dirname, folder)
+    contents = fs.readdirSync(pathToClean)
+    for file in contents when (_.endsWith(file, '.js') or _.endsWith(file, '.map'))
+      fs.unlinkSync(path.join(pathToClean, file))
 )
