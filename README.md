@@ -60,6 +60,7 @@ Insert before or after.
 
 ## Changelog ##
 
+* 1.0.3 - 2017-10-07 - Debugging 3
 * 1.0.2 - 2017-10-07 - Debugging 2
 * 1.0.1 - 2017-10-07 - Debugging my Cakefile
 * 1.0.0 - 2017-10-07 - Calling it 1.0.0 and trying again to get .js files into npm package. Prior attempt apparently failed.
