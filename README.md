@@ -60,6 +60,7 @@ Insert before or after.
 
 ## Changelog ##
 
+* 1.0.6 removed engines to fix 
 * 1.0.5 thru 1.0.1 - 2017-10-07 - Debugging Cakefile
 * 1.0.0 - 2017-10-07 - Calling it 1.0.0 and trying again to get .js files into npm package. Prior attempt apparently failed.
 * 0.2.1 - 2014-11-25 - Moved CoffeeScript to dev dependency and added .js files to npm package
