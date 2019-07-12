@@ -14,9 +14,6 @@
     "url": "http://maccherone.com"
   },
   "homepage": "https://github.com/lmaccherone/DoublyLinkedList",
-  "engines": {
-    "node": "8.6.x"
-  },
   "dependencies": {},
   "repository": {
     "type": "git",
